@@ -1,0 +1,508 @@
+!Software Version V200R020C10SPC500
+#
+sysname 3F-S5731-H
+#
+info-center logbuffer size 1024
+#
+vlan batch 400 503 602 to 604 649 720 803 903
+#
+stp mode vbst
+#
+authentication-profile name default_authen_profile
+authentication-profile name dot1x_authen_profile
+authentication-profile name dot1xmac_authen_profile
+authentication-profile name mac_authen_profile
+authentication-profile name multi_authen_profile
+authentication-profile name portal_authen_profile
+#
+stp vlan 602 to 604 803 903 priority 0
+#
+telnet server-source all-interface
+#
+undo http server enable
+undo http secure-server enable
+http server-source -i MEth0/0/1
+#
+clock timezone BJ add 08:00:00
+#
+dhcp enable
+#
+ip relay address cycle
+#
+diffserv domain default
+#
+radius-server template default
+#
+pki realm default
+ certificate-check none
+#
+acl number 3000
+ rule 8 permit ip source 172.17.48.0 0.0.1.255 destination 172.17.210.12 0
+ rule 9 permit ip source 172.17.48.0 0.0.1.255 destination 172.17.210.11 0
+ rule 10 permit ip source 172.17.48.0 0.0.1.255 destination 172.17.1.83 0
+ rule 15 deny ip source 172.17.48.0 0.0.1.255 destination 10.0.0.0 0.255.255.255
+ rule 20 deny ip source 172.17.48.0 0.0.1.255 destination 172.16.0.0 0.15.255.255
+ rule 25 deny ip source 172.17.48.0 0.0.1.255 destination 192.168.0.0 0.0.255.255
+ rule 30 permit ip
+#
+free-rule-template name default_free_rule
+#
+portal-access-profile name portal_access_profile
+#
+drop-profile default
+#
+vlan 400
+ description menjin
+vlan 503
+ description 1-4F-Office
+vlan 602
+ description 1-2F-WIFI
+vlan 603
+ description 3F-WIFI
+vlan 604
+ description 4F-WIFI
+vlan 720
+ description To-S5732-CORE
+vlan 803
+ description 1-4F-SW
+vlan 903
+ description 1-4F-AP
+#
+dhcp server group 1 
+ dhcp-server 10.0.41.30 1
+ dhcp-server 10.0.41.35 2
+#
+aaa
+ authentication-scheme default
+  authentication-mode local
+ authentication-scheme radius
+  authentication-mode radius
+ authorization-scheme default
+  authorization-mode local
+ accounting-scheme default
+  accounting-mode none
+ local-aaa-user password policy administrator
+  password history record number 0
+  undo password alert original 
+  password expire 0
+ domain default
+  authentication-scheme radius
+  accounting-scheme default
+  radius-server default
+ domain default_admin
+  authentication-scheme default
+  accounting-scheme default
+ undo local-user admin
+ local-user inet password irreversible-cipher $1c$F9ReN|mLYB$E2dI5@G-\73Px@>Sh`#.PA"E=mYK'Hu]yh'(jj(#$
+ local-user inet privilege level 15
+ local-user inet service-type terminal ssh
+ local-user belle password irreversible-cipher $1c$(&N+QS;{OS$ZxI$Cp`nZ./SEnYN-z/'+I,z7V&W38zK>;H0kNT,$
+ local-user belle privilege level 15
+ local-user belle service-type terminal ssh
+#
+ntp-service server disable
+ntp-service ipv6 server disable
+ntp-service unicast-server 10.0.255.254
+#
+interface Vlanif1
+#
+interface Vlanif602
+ description 1-2F-WIFI
+ ip address 172.17.8.1 255.255.252.0
+ dhcp select relay
+ dhcp relay server-select 1
+#
+interface Vlanif603
+ description 3F-WIFI
+ ip address 172.17.2.1 255.255.254.0
+ dhcp select relay
+ dhcp relay server-select 1
+#
+interface Vlanif604
+ description 4F-WIFI
+ ip address 172.17.4.1 255.255.254.0
+ dhcp select relay
+ dhcp relay server-select 1
+#
+interface Vlanif649
+ description 3F-WIFI-ZB-Guest
+ ip address 172.17.48.1 255.255.254.0
+ traffic-filter inbound acl 3000
+ dhcp select relay
+ dhcp relay server-select 1
+#
+interface Vlanif720
+ description To-S5732-CORE
+ ip address 10.0.255.154 255.255.255.248
+#
+interface Vlanif803
+ description 1-4F-SW
+ ip address 10.0.238.225 255.255.255.224
+#
+interface Vlanif903
+ description 1-4F-AP
+ ip address 10.0.239.225 255.255.255.224
+ dhcp select interface
+ dhcp server option 43 ascii 10.0.255.140 
+#
+interface MEth0/0/1
+ ip address 192.168.1.253 255.255.255.0
+#
+interface Eth-Trunk1
+ port link-type trunk
+ undo port trunk allow-pass vlan 1
+ port trunk allow-pass vlan 2 to 4094
+ mode lacp
+#
+interface Eth-Trunk2
+ port link-type trunk
+ undo port trunk allow-pass vlan 1
+ port trunk allow-pass vlan 2 to 4094
+ mode lacp
+#
+interface Eth-Trunk3
+ port link-type trunk
+ undo port trunk allow-pass vlan 1
+ port trunk allow-pass vlan 2 to 4094
+ mode lacp
+#
+interface Eth-Trunk4
+ port link-type trunk
+ undo port trunk allow-pass vlan 1
+ port trunk allow-pass vlan 2 to 4094
+ mode lacp
+#
+interface Eth-Trunk5
+ port link-type trunk
+ undo port trunk allow-pass vlan 1
+ port trunk allow-pass vlan 2 to 4094
+ mode lacp
+#
+interface Eth-Trunk45
+ port link-type trunk
+ undo port trunk allow-pass vlan 1
+ port trunk allow-pass vlan 2 to 4094
+ mode lacp
+#
+interface Eth-Trunk46
+ port link-type trunk
+ undo port trunk allow-pass vlan 1
+ port trunk allow-pass vlan 2 to 4094
+ mode lacp
+#
+interface Eth-Trunk47
+ port link-type trunk
+ undo port trunk allow-pass vlan 1
+ port trunk allow-pass vlan 2 to 4094
+ mode lacp
+#
+interface Eth-Trunk48
+ port link-type trunk
+ undo port trunk allow-pass vlan 1
+ port trunk allow-pass vlan 2 to 4094
+ mode lacp
+#
+interface Eth-Trunk127
+ description to-19F-S5732-CORE
+ port link-type trunk
+ undo port trunk allow-pass vlan 1
+ port trunk allow-pass vlan 400 503 720 803
+ mode lacp
+#
+interface GigabitEthernet0/0/1
+ eth-trunk 1
+#
+interface GigabitEthernet0/0/2
+ eth-trunk 2
+#
+interface GigabitEthernet0/0/3
+ eth-trunk 3
+#
+interface GigabitEthernet0/0/4
+ eth-trunk 4
+#
+interface GigabitEthernet0/0/5
+ eth-trunk 5
+#
+interface GigabitEthernet0/0/6
+#
+interface GigabitEthernet0/0/7
+#
+interface GigabitEthernet0/0/8
+#
+interface GigabitEthernet0/0/9
+#
+interface GigabitEthernet0/0/10
+#
+interface GigabitEthernet0/0/11
+#
+interface GigabitEthernet0/0/12
+#
+interface GigabitEthernet0/0/13
+#
+interface GigabitEthernet0/0/14
+#
+interface GigabitEthernet0/0/15
+#
+interface GigabitEthernet0/0/16
+#
+interface GigabitEthernet0/0/17
+#
+interface GigabitEthernet0/0/18
+#
+interface GigabitEthernet0/0/19
+#
+interface GigabitEthernet0/0/20
+#
+interface GigabitEthernet0/0/21
+#
+interface GigabitEthernet0/0/22
+#
+interface GigabitEthernet0/0/23
+#
+interface GigabitEthernet0/0/24
+#
+interface GigabitEthernet0/0/25
+#
+interface GigabitEthernet0/0/26
+#
+interface GigabitEthernet0/0/27
+#
+interface GigabitEthernet0/0/28
+#
+interface GigabitEthernet0/0/29
+#
+interface GigabitEthernet0/0/30
+#
+interface GigabitEthernet0/0/31
+#
+interface GigabitEthernet0/0/32
+#
+interface GigabitEthernet0/0/33
+#
+interface GigabitEthernet0/0/34
+#
+interface GigabitEthernet0/0/35
+#
+interface GigabitEthernet0/0/36
+#
+interface GigabitEthernet0/0/37
+#
+interface GigabitEthernet0/0/38
+#
+interface GigabitEthernet0/0/39
+#
+interface GigabitEthernet0/0/40
+#
+interface GigabitEthernet0/0/41
+#
+interface GigabitEthernet0/0/42
+#
+interface GigabitEthernet0/0/43
+#
+interface GigabitEthernet0/0/44
+#
+interface GigabitEthernet0/0/45
+ eth-trunk 45
+#
+interface GigabitEthernet0/0/46
+ eth-trunk 46
+#
+interface GigabitEthernet0/0/47
+ eth-trunk 47
+#
+interface GigabitEthernet0/0/48
+ eth-trunk 48
+#
+interface GigabitEthernet1/0/1
+ eth-trunk 1
+#
+interface GigabitEthernet1/0/2
+ eth-trunk 2
+#
+interface GigabitEthernet1/0/3
+ eth-trunk 3
+#
+interface GigabitEthernet1/0/4
+ eth-trunk 4
+#
+interface GigabitEthernet1/0/5
+ eth-trunk 5
+#
+interface GigabitEthernet1/0/6
+#
+interface GigabitEthernet1/0/7
+#
+interface GigabitEthernet1/0/8
+#
+interface GigabitEthernet1/0/9
+#
+interface GigabitEthernet1/0/10
+#
+interface GigabitEthernet1/0/11
+#
+interface GigabitEthernet1/0/12
+#
+interface GigabitEthernet1/0/13
+#
+interface GigabitEthernet1/0/14
+#
+interface GigabitEthernet1/0/15
+#
+interface GigabitEthernet1/0/16
+#
+interface GigabitEthernet1/0/17
+#
+interface GigabitEthernet1/0/18
+#
+interface GigabitEthernet1/0/19
+#
+interface GigabitEthernet1/0/20
+#
+interface GigabitEthernet1/0/21
+#
+interface GigabitEthernet1/0/22
+#
+interface GigabitEthernet1/0/23
+#
+interface GigabitEthernet1/0/24
+#
+interface GigabitEthernet1/0/25
+#
+interface GigabitEthernet1/0/26
+#
+interface GigabitEthernet1/0/27
+#
+interface GigabitEthernet1/0/28
+#
+interface GigabitEthernet1/0/29
+#
+interface GigabitEthernet1/0/30
+#
+interface GigabitEthernet1/0/31
+#
+interface GigabitEthernet1/0/32
+#
+interface GigabitEthernet1/0/33
+#
+interface GigabitEthernet1/0/34
+#
+interface GigabitEthernet1/0/35
+#
+interface GigabitEthernet1/0/36
+#
+interface GigabitEthernet1/0/37
+#
+interface GigabitEthernet1/0/38
+#
+interface GigabitEthernet1/0/39
+#
+interface GigabitEthernet1/0/40
+#
+interface GigabitEthernet1/0/41
+#
+interface GigabitEthernet1/0/42
+#
+interface GigabitEthernet1/0/43
+#
+interface GigabitEthernet1/0/44
+#
+interface GigabitEthernet1/0/45
+ eth-trunk 45
+#
+interface GigabitEthernet1/0/46
+ eth-trunk 46
+#
+interface GigabitEthernet1/0/47
+ eth-trunk 47
+#
+interface GigabitEthernet1/0/48
+ eth-trunk 48
+#
+interface XGigabitEthernet0/0/1
+ eth-trunk 127
+#
+interface XGigabitEthernet0/0/2
+#
+interface XGigabitEthernet0/0/3
+#
+interface XGigabitEthernet0/0/4
+#
+interface XGigabitEthernet1/0/1
+ eth-trunk 127
+#
+interface XGigabitEthernet1/0/2
+#
+interface XGigabitEthernet1/0/3
+#
+interface XGigabitEthernet1/0/4
+#
+interface NULL0
+#
+undo icmp name timestamp-request receive
+#
+ip route-static 0.0.0.0 0.0.0.0 10.0.255.153
+#
+snmp-agent
+snmp-agent local-engineid 800007DB032868D2EBA9E0
+snmp-agent community read cipher %^%#8>-W(SgwaP{$3p@BLhcY60%2C{wzn9&Hv=*C*FEW0A6o/#'W{'D_GJ@@FOtDYQGx;RCYNN#PAcQcl#32%^%#
+snmp-agent sys-info version v2c v3
+snmp-agent target-host inform address udp-domain 10.0.50.50 params securityname cipher %^%#y^}#8~Oe`#Pv.c8f/YI.;_R{WFjW.='&2r#=[,':%^%# v2c
+snmp-agent protocol source-status all-interface
+undo snmp-agent protocol source-status ipv6 all-interface
+#
+stelnet server enable
+ssh user belle
+ssh user belle authentication-type password
+ssh user belle service-type stelnet
+ssh user inet
+ssh user inet authentication-type password
+ssh user inet service-type stelnet
+ssh server-source all-interface
+ssh server cipher aes256_ctr aes128_ctr
+ssh server hmac sha2_256
+ssh server key-exchange dh_group16_sha512 dh_group15_sha512 dh_group14_sha256 dh_group_exchange_sha256
+ssh client cipher aes256_ctr aes128_ctr
+ssh client hmac sha2_256
+ssh client key-exchange dh_group16_sha512 dh_group15_sha512 dh_group14_sha256 dh_group_exchange_sha256
+ssh server dh-exchange min-len 2048
+#
+user-interface con 0
+ authentication-mode aaa
+ idle-timeout 5 0
+user-interface vty 0 4
+ authentication-mode aaa
+ idle-timeout 5 0
+user-interface vty 16 20
+#
+wlan
+ traffic-profile name default
+ security-profile name default
+ security-profile name default-wds
+ security-profile name default-mesh
+ ssid-profile name default
+ vap-profile name default
+ wds-profile name default
+ mesh-handover-profile name default
+ mesh-profile name default
+ regulatory-domain-profile name default
+ air-scan-profile name default
+ rrm-profile name default
+ radio-2g-profile name default
+ radio-5g-profile name default
+ wids-spoof-profile name default
+ wids-whitelist-profile name default
+ wids-profile name default
+ ap-system-profile name default
+ port-link-profile name default
+ wired-port-profile name default
+ ap-group name default
+ provision-ap
+#
+dot1x-access-profile name dot1x_access_profile
+#
+mac-access-profile name mac_access_profile
+#
+ops
+#
+return

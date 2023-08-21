@@ -1,0 +1,215 @@
+
+Building configuration...
+Current configuration: 4312 bytes
+
+version NBS5710_RGOS 11.4(1)B70
+hostname 3F-S5710-POE
+!
+spanning-tree mode rstp
+spanning-tree
+!
+username belle privilege 15 secret 5 $1$7eyy$zCyyBzF9wCDzDzu8
+!
+cwmp
+ acs url http://118.190.126.198/service/acs/G1NT75Q00205B
+ cpe inform interval 180
+ timer cpe-timeout 90
+!
+install 0 NBS5710-24GT4SFP-E-P
+!
+sysmac 8005.88af.3f3d
+no ip domain-lookup
+!
+webmaster level 0 username admin password 7 141e43032a1c2e381544456d25471d08
+!
+nfpp
+!
+service password-encryption
+!
+redundancy
+!
+ip ssh version 2
+logging buffered 100000
+clock timezone PRC +8 0
+!
+no zam
+enable service ssh-server
+no enable service telnet-server
+!
+vlan 649
+ name 3F-ZB-Guest
+!
+vlan range 1,602-604,803,903
+!
+interface GigabitEthernet 0/1
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ arp-check
+ poe enable
+!
+interface GigabitEthernet 0/2
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ arp-check
+ poe enable
+!
+interface GigabitEthernet 0/3
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ arp-check
+ poe enable
+!
+interface GigabitEthernet 0/4
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/5
+ description to-2F-AP03-1600
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/6
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/7
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/8
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/9
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/10
+ description to-4F-AP03-1600
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/11
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/12
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/13
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/14
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/15
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/16
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/17
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/18
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/19
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/20
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/21
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/22
+ switchport mode trunk
+ switchport trunk native vlan 903
+ spanning-tree portfast
+ poe enable
+!
+interface GigabitEthernet 0/23
+ port-group 128 mode active
+ no poe enable
+!
+interface GigabitEthernet 0/24
+ port-group 128 mode active
+ no poe enable
+!
+interface GigabitEthernet 0/25
+!
+interface GigabitEthernet 0/26
+!
+interface GigabitEthernet 0/27
+!
+interface GigabitEthernet 0/28
+!
+interface AggregatePort 128
+ switchport mode trunk
+!
+interface VLAN 1
+!
+interface VLAN 803
+ ip address 10.0.238.230 255.255.255.224
+!
+ip route 0.0.0.0 0.0.0.0 10.0.238.225
+!
+line console 0
+ exec-timeout 5 0
+ login local
+line vty 0 4
+ transport input ssh
+ exec-timeout 5 0
+ login local
+!
+end

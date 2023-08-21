@@ -1,0 +1,361 @@
+!Software Version V200R021C00SPC100
+#
+sysname 2F-S5735-L-1
+#
+info-center logbuffer size 1024
+#
+vlan batch 400 503 803
+#
+stp mode vbst
+#
+authentication-profile name default_authen_profile
+authentication-profile name dot1x_authen_profile
+authentication-profile name dot1xmac_authen_profile
+authentication-profile name mac_authen_profile
+authentication-profile name multi_authen_profile
+authentication-profile name portal_authen_profile
+#
+telnet server-source all-interface
+#
+undo http server enable
+undo http secure-server enable
+#
+clock timezone BJ add 08:00:00
+#
+diffserv domain default
+#
+radius-server template default
+#
+pki realm default
+ certificate-check none
+#
+free-rule-template name default_free_rule
+#
+portal-access-profile name portal_access_profile
+#
+aaa
+ authentication-scheme default
+  authentication-mode local
+ authentication-scheme radius
+  authentication-mode radius
+ authorization-scheme default
+  authorization-mode local
+ accounting-scheme default
+  accounting-mode none
+ local-aaa-user password policy administrator
+  password history record number 0
+  undo password alert original 
+  password expire 0
+ domain default
+  authentication-scheme radius
+  accounting-scheme default
+  radius-server default
+ domain default_admin
+  authentication-scheme default
+  accounting-scheme default
+ local-user belle password irreversible-cipher $1c$%uF(Vc#B\N$SZ|@R`2Z]:fyoT3d'a,'r#VO&$eUl~&m_xCBVD`4$
+ local-user belle privilege level 15
+ local-user belle service-type terminal ssh
+#
+ntp-service server disable
+ntp-service ipv6 server disable
+ntp-service unicast-server 10.0.255.254
+#
+interface Vlanif1
+#
+interface Vlanif803
+ ip address 10.0.238.232 255.255.255.224
+#
+interface Eth-Trunk126
+ port link-type trunk
+ undo port trunk allow-pass vlan 1
+ port trunk allow-pass vlan 2 to 4094
+ mode lacp
+#
+interface Eth-Trunk127
+ port link-type trunk
+ undo port trunk allow-pass vlan 1
+ port trunk allow-pass vlan 2 to 4094
+ mode lacp
+#
+interface GigabitEthernet0/0/1
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/2
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/3
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/4
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/5
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/6
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/7
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/8
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/9
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/10
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/11
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/12
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/13
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/14
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/15
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/16
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/17
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/18
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/19
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/20
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/21
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/22
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/23
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/24
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/25
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/26
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/27
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/28
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/29
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/30
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/31
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/32
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/33
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/34
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/35
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/36
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/37
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/38
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/39
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/40
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/41
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/42
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/43
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/44
+ port link-type access
+ port default vlan 503
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/45
+ port link-type access
+ port default vlan 400
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/46
+ port link-type access
+ port default vlan 400
+ stp edged-port enable
+#
+interface GigabitEthernet0/0/47
+ eth-trunk 127
+#
+interface GigabitEthernet0/0/48
+ eth-trunk 127
+#
+interface XGigabitEthernet0/0/1
+ eth-trunk 126
+#
+interface XGigabitEthernet0/0/2
+ eth-trunk 126
+#
+interface XGigabitEthernet0/0/3
+#
+interface XGigabitEthernet0/0/4
+#
+interface NULL0
+#
+undo icmp name timestamp-request receive
+#
+ip route-static 0.0.0.0 0.0.0.0 10.0.238.225
+#
+stelnet server enable
+ssh user belle
+ssh user belle authentication-type password
+ssh user belle service-type stelnet
+ssh server-source all-interface
+ssh server cipher aes256_ctr aes128_ctr
+ssh server hmac sha2_256
+ssh server key-exchange dh_group16_sha512 dh_group15_sha512 dh_group14_sha256 dh_group_exchange_sha256
+ssh client cipher aes256_ctr aes128_ctr
+ssh client hmac sha2_256
+ssh client key-exchange dh_group16_sha512 dh_group15_sha512 dh_group14_sha256 dh_group_exchange_sha256
+ssh server dh-exchange min-len 2048
+#
+user-interface con 0
+ authentication-mode aaa
+ idle-timeout 5 0
+user-interface vty 0 4
+ authentication-mode aaa
+ idle-timeout 5 0
+ screen-length 0
+user-interface vty 16 20
+#
+dot1x-access-profile name dot1x_access_profile
+#
+mac-access-profile name mac_access_profile
+#
+ops
+#
+return
